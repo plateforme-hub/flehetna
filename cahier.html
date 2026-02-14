@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flehetna</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="logg.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: #2e2e2e;
+    }
+
+    .full-width-ad {
+      width: 100%;
+      max-height: 300px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .full-width-ad img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 300px;
+      transition: opacity 0.5s ease-in-out;
+      cursor: pointer;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #e6ffe6;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: #2f8f2f;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #2e2e2e;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #2f8f2f;
+      text-decoration: underline;
+    }
+
+    .navbar ul::after {
+      content: "";
+      display: block;
+      height: 2px;
+      background-color: #2f8f2f;
+      margin-top: 5px;
+      border-radius: 1px;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: #2e2e2e;
+      border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        max-height: 0;
+        /* hide menu by collapsing height */
+        overflow: hidden;
+        /* hide content when collapsed */
+        flex-direction: column;
+        background-color: #e6ffe6;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 220px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0 1rem;
+        /* horizontal padding, vertical inside max-height */
+        z-index: 10;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+      }
+
+      .nav-links.active {
+        max-height: 500px;
+        /* enough to show all items */
+        padding: 1rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+        cursor: pointer;
+      }
+    }
+
+    .documents-section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 3rem 2rem;
+    }
+
+    .documents-section .section-title {
+      text-align: center;
+      color: #2f8f2f;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .documents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .document-card {
+      background-color: #f0fff0;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .document-card img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .document-card h3 {
+      color: #2f8f2f;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .document-card p {
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .download-btn {
+      background-color: #2f8f2f;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background-color: #256b25;
+    }
+
+    .footer {
+      background-color: #e6ffe6;
+      padding: 2rem;
+      border-top: 1px solid #ccc;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #2f8f2f;
+      margin-bottom: 1rem;
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .socials a {
+      text-decoration: none;
+      color: #2e2e2e;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: -1rem;
+    }
+
+    .social-icons a {
+      color: #2e2e2e;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #2f8f2f;
+    }
+
+    .contact-info {
+      margin-top: 1rem;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .footer-logo-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-slogan {
+      font-style: italic;
+      color: #2f8f2f;
+      font-size: 0.9rem;
+      margin-top: -1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo">Flehetna</div>
+    <nav class="navbar">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="services.html">Nos Solutions</a></li>
+        <li><a href="maladies.html">Maladies et Ravageurs</a></li>
+        <li><a href="reg.html">Réglementations</a></li>
+        <li><a href="cahier.html">Cahier de Charges</a></li>
+        <!-- <li><a href="recherche.html">Recherche des variétés</a></li>
+        <li><a href="rech.html">Index phytosanitaires</a></li> -->
+        <li><a href="actu.html">Actu Entreprises</a></li>
+        <li><a href="contact.html">Contactez-nous</a></li>
+      </ul>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="full-width-ad" id="ad-banner">
+      <a id="ad-link" href="#" target="_blank" rel="noopener">
+        <img src="lead3.jpg" alt="Advertisement">
+      </a>
+    </div>
+
+    <section id="cah">
+      <section class="documents-section">
+        <h2 class="section-title">Cahier de charge</h2>
+        <div class="documents-grid">
+
+          <article class="document-card">
+            <img src="cjh.png" alt="Document 1">
+            <h3>Cahier de charge Importation et la commercialisation des
+              semences et plants</h3>
+            <p>Ce cahier de charge est relatif à l'importation et la
+              commercialisation des semences et plants </p>
+            <a href="cahier1.html" class="download-btn">voir</a>
+          </article>
+
+          <article class="document-card">
+            <img src="cjh1.jpg" alt="Document 2">
+            <h3>Cahier de charges production et la
+              multiplication des semences et plants</h3>
+            <p>Ce cahier de charge est relatif à la production et la
+              multiplication des semences et plants</p>
+            <a href="cahier2.html" class="download-btn">voir</a>
+          </article>
+
+          <article class="document-card">
+            <img src="cjh2.png" alt="Document 3">
+            <h3>cahier de charge pesticides à usage agricole</h3>
+            <p>Ce cahier de charge est relatif à la fabrication, à la
+              fourniture, à la préparation, à l'adaptation, au stockage, à la
+              vente et à la distribution de pesticides à usage agricole</p>
+            <a href="cahier3.html" class="download-btn">voir</a>
+          </article>
+
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo-group">
+        <div class="footer-logo">Flehetna</div>
+        <p class="footer-slogan">Votre partenaire du succès.</p>
+      </div>
+      <div class="socials">
+        <div class="contact-info">
+          <p><b>Email :</b> contact@Flehetna.com</p>
+          <p><b>Téléphone : </b>+216 98 746 516 / 28 424 245 </p>
+          <p><b>adresse : </b><a target="_blank" href="https://maps.app.goo.gl/Nzj7kwZraE4rLWEB7"><u>Ouvrir sur maps</u></a></p>
+        </div>
+        <div class="social-icons">
+          <a target="_blank" href="https://www.facebook.com/FLehetna/"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 Flehetna. Tous droits
+      réservés.</div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    function handleResize() {
+      if (window.innerWidth > 768) {
+        navLinks.style.display = 'flex';
+      } else if (!navLinks.classList.contains('active')) {
+        navLinks.style.display = 'none';
+      }
+    }
+
+    toggle.addEventListener('click', () => {
+      if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+        navLinks.classList.remove('active');
+      } else {
+        navLinks.style.display = 'flex';
+        navLinks.classList.add('active');
+      }
+    });
+
+    const ads = [
+      { img: 'lead3.jpg', link: 'https://site-1.com' },
+      { img: 'lead1.jpg', link: 'https://site-2.com' },
+      { img: 'lead2.jpg', link: 'https://site-3.com' }
+    ];
+
+    let currentIndex = 0;
+
+    const adBanner = document.getElementById('ad-banner');
+    const adImg = adBanner.querySelector('img');
+    const adLink = document.getElementById('ad-link');
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % ads.length;
+
+      // fade out
+      adImg.style.opacity = 0;
+
+      setTimeout(() => {
+        adImg.src = ads[currentIndex].img;
+        adLink.href = ads[currentIndex].link;
+        adImg.style.opacity = 1;
+      }, 500); // same as CSS transition
+    }, 2000);
+  </script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const downloadBtns = document.querySelectorAll('.download-btn');
+      downloadBtns.forEach(btn => {
+        // If you want to change only buttons containing 'telecharger' text:
+        if (btn.textContent.toLowerCase().includes('telecharger')) {
+          btn.textContent = 'voir';
+          // Also optionally change href if you want:
+          btn.href = 'cahier1.html';
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

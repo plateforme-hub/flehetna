@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flehetna</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="logg.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: #2e2e2e;
+    }
+
+    .full-width-ad {
+      width: 100%;
+      max-height: 300px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .full-width-ad img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 300px;
+      transition: opacity 0.5s ease-in-out;
+      cursor: pointer;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #e6ffe6;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: #2f8f2f;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #2e2e2e;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #2f8f2f;
+      text-decoration: underline;
+    }
+
+    .navbar ul::after {
+      content: "";
+      display: block;
+      height: 2px;
+      background-color: #2f8f2f;
+      margin-top: 5px;
+      border-radius: 1px;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: #2e2e2e;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        max-height: 0;
+        /* hide menu by collapsing height */
+        overflow: hidden;
+        /* hide content when collapsed */
+        flex-direction: column;
+        background-color: #e6ffe6;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 220px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0 1rem;
+        /* horizontal padding, vertical inside max-height */
+        z-index: 10;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+      }
+
+      .nav-links.active {
+        max-height: 500px;
+        /* enough to show all items */
+        padding: 1rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+        cursor: pointer;
+      }
+    }
+
+
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: #2f8f2f;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .about img {
+      max-width: 100%;
+      flex: 1;
+      border-radius: 20px;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .services-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .service-box {
+      background-color: #f0fff0;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-box h3 {
+      color: #2f8f2f;
+      margin-bottom: 0.5rem;
+    }
+
+    .experience-comments {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .comment {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 10px;
+      border-left: 4px solid #2f8f2f;
+    }
+
+    .stars {
+      color: #f1c40f;
+      font-size: 1rem;
+    }
+
+    .footer {
+      background-color: #e6ffe6;
+      padding: 2rem;
+      border-top: 1px solid #ccc;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #2f8f2f;
+      margin-bottom: 1rem;
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .socials a {
+      text-decoration: none;
+      color: #2e2e2e;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: -1rem;
+    }
+
+    .social-icons a {
+      color: #2e2e2e;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #2f8f2f;
+    }
+
+    .contact-info {
+      margin-top: 1rem;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .footer-logo-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-slogan {
+      font-style: italic;
+      color: #2f8f2f;
+      font-size: 0.9rem;
+      margin-top: -1rem;
+    }
+  </style>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 9999px;
+      border: 3px solid rgba(0, 0, 0, .12);
+      background: green;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .15);
+      text-decoration: none;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .back-to-top svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .back-to-top.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    #svgx {
+      color: #e6ffe6;
+    }
+
+    #svgx:hover {
+      color: #2f8f2f
+    }
+
+    .back-to-top:hover {
+      background: white;
+    }
+
+    .back-to-top:active {
+      transform: translateY(1px) scale(.98);
+    }
+  </style>
+
+</head>
+<div id="haut"></div>
+
+<body>
+  <header class="header">
+    <div class="logo">​Flehetna​</div>
+    <nav class="navbar">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="services.html">Nos Solutions</a></li>
+        <li><a href="maladies.html">Maladies et Ravageurs</a></li>
+        <li><a href="reg.html">Réglementations</a></li>
+        <li><a href="cahier.html">Cahier de Charges</a></li>
+        <!-- <li><a href="recherche.html">Recherche des variétés</a></li> -->
+        <!-- <li><a href="rech.html">Index phytosanitaires</a></li> -->
+        <li><a href="actu.html">Actu Entreprises</a></li>
+        <li><a href="contact.html">Contactez-nous</a></li>
+      </ul>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="full-width-ad" id="ad-banner">
+      <a id="ad-link" href="#" target="_blank" rel="noopener">
+        <img src="criblée.PNG" alt="Advertisement">
+      </a>
+    </div>
+
+    <!-- Section 1: About Us -->
+    <section class="section">
+      <h2 class="section-title">Qui somme nous ?</h2>
+      <div class="about">
+        <img src="Flehetna.jpg" alt="About Us" />
+        <div class="about-text">
+          <p>
+            <b>Flehetna</b> est une société spécialisée dans la formation,
+            l’étude et la communication agricole. Notre mission est de
+            soutenir les agriculteurs, les entreprises et les institutions
+            dans la modernisation de leurs pratiques agricoles à travers des
+            services personnalisés, des contenus pédagogiques et des solutions
+            de communication innovantes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: What We Do -->
+    <section class="section">
+      <h2 class="section-title">Notre mission</h2>
+      <p style="text-align:center; max-width:700px; margin:auto;">
+        Chez <b>Flehetna</b>, notre mission est de contribuer activement au
+        développement d’une agriculture moderne, durable et compétente.
+      </p>
+      <div class="services-boxes">
+        <div class="service-box">
+          <h3>📚 Formation</h3>
+          <p>Renforcer les compétences du secteur agricole.</p>
+        </div>
+        <div class="service-box">
+          <h3>📊 Étude</h3>
+          <p>Analyser pour mieux décider.</p>
+        </div>
+        <div class="service-box">
+          <h3>📢 Communication</h3>
+          <p>Donner de la voix à l’agriculture.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Section 3: Our Experience -->
+    <section class="section">
+      <h2 class="section-title">Notre Experience</h2>
+      <p style="text-align:center; max-width:700px; margin:auto;">Avec plus de
+        10 ans d’expérience sur le terrain, nous avons gagné la confiance des
+        agriculteurs, des agronomes et des clients à travers la Tunisie.</p>
+      <div class="experience-comments">
+        <div class="comment">
+          <p><strong>Oumayma Maghraoui.</strong> – Ingenieur Agronome</p>
+          <p>“En tant qu’ingénieur agronome, je travaille au sein de cette société et j’apprécie son professionnalisme
+            ainsi que son engagement en faveur de bonnes pratiques agricoles..”</p>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="comment">
+          <p><strong>Amal Frihi.</strong> – Technicien en Comptabilité</p>
+          <p>“En tant que Technicien en Comptabilité, je travaille au sein de cette société et j’apprécie le sérieux,
+            l’organisation et le respect des procédures comptables.”</p>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="comment">
+          <p><strong>Faouzi Beji.</strong> – Agriculteur</p>
+          <p>“En tant qu’agriculteur, je suis satisfait des services de cette société et de la qualité de son
+            accompagnement sur le terrain.”</p>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+    </section>
+    <!-- <section> -->
+    <!-- <h1 class="section-title">Recherche des variétés</h1><br>
+      <div class="btn-container">
+        <a href="recherche.html" class="contact-btn">Allez à la page</a>
+        <br><br><br>
+      </div>
+      <br>
+      <hr style="width: 80%;">
+      <h1 class="section-title">Index phytosanitaires</h1> <br>
+      <div class="btn-container">
+        <a href="rech.html" class="contact-btn">Allez à la page</a>
+      </div>
+      <br><br><br>
+      <hr style="width: 80%;"> -->
+
+    <!-- </section> -->
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo-group">
+        <div class="footer-logo">Flehetna</div>
+        <p class="footer-slogan">Votre partenaire du succès.</p>
+      </div>
+      <div class="socials">
+        <div class="contact-info">
+          <p><b>Email :</b> contact@Flehetna.com</p>
+          <p><b>Téléphone : </b>+216 98 746 516 / 28 424 245</p>
+          <p><b>adresse : </b><a target="_blank" href="https://maps.app.goo.gl/Nzj7kwZraE4rLWEB7"><u>Ouvrir sur
+                maps</u></a></p>
+        </div>
+        <div class="social-icons">
+          <a target="_blank" href="https://www.facebook.com/FLehetna/" aria-label="Facebook"><i
+              class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 Flehetna. Tous droits
+      réservés.</div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    function handleResize() {
+      if (window.innerWidth > 768) {
+        navLinks.style.display = 'flex';
+      } else if (!navLinks.classList.contains('active')) {
+        navLinks.style.display = 'none';
+      }
+    }
+
+    toggle.addEventListener('click', () => {
+      if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+        navLinks.classList.remove('active');
+      } else {
+        navLinks.style.display = 'flex';
+        navLinks.classList.add('active');
+      }
+    });
+
+    const ads = [
+      { img: 'criblée.PNG', link: 'https://site-1.com' },
+      { img: 'guidee.jpg', link: 'https://site-2.com' },
+      { img: 'lead2.jpg', link: 'https://site-3.com' }
+    ];
+
+    let currentIndex = 0;
+
+    const adBanner = document.getElementById('ad-banner');
+    const adImg = adBanner.querySelector('img');
+    const adLink = document.getElementById('ad-link');
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % ads.length;
+
+      // fade out
+      adImg.style.opacity = 0;
+
+      setTimeout(() => {
+        adImg.src = ads[currentIndex].img;
+        adLink.href = ads[currentIndex].link;
+        adImg.style.opacity = 1;
+      }, 500); // same as CSS transition
+    }, 2000);
+  </script>
+  <a href="#haut" class="back-to-top" aria-label="Revenir en haut">
+    <svg viewBox="0 0 24 24" aria-hidden="true" id="svgx">
+      <path d="M12 5l-7 7h4v7h6v-7h4z" fill="currentColor" />
+    </svg>
+  </a>
+
+  <script>
+    const btn = document.querySelector('.back-to-top');
+    function toggleBtn() {
+      if (window.scrollY > 200) {
+        btn.classList.add('is-visible');
+      } else {
+        btn.classList.remove('is-visible');
+      }
+    }
+    window.addEventListener('scroll', toggleBtn);
+    window.addEventListener('load', toggleBtn);
+  </script>
+
+</body>
+
+</html>

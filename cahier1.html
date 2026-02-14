@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flehetna</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="logg.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: #2e2e2e;
+    }
+
+    .full-width-ad {
+      width: 100%;
+      max-height: 300px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .full-width-ad img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 300px;
+      transition: opacity 0.5s ease-in-out;
+      cursor: pointer;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #e6ffe6;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: #2f8f2f;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #2e2e2e;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #2f8f2f;
+      text-decoration: underline;
+    }
+
+    .navbar ul::after {
+      content: "";
+      display: block;
+      height: 2px;
+      background-color: #2f8f2f;
+      margin-top: 5px;
+      border-radius: 1px;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: #2e2e2e;
+      border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        max-height: 0;
+        /* hide menu by collapsing height */
+        overflow: hidden;
+        /* hide content when collapsed */
+        flex-direction: column;
+        background-color: #e6ffe6;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 220px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0 1rem;
+        /* horizontal padding, vertical inside max-height */
+        z-index: 10;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+      }
+
+      .nav-links.active {
+        max-height: 500px;
+        /* enough to show all items */
+        padding: 1rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+        cursor: pointer;
+      }
+    }
+
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: #2f8f2f;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .about img {
+      max-width: 100%;
+      flex: 1;
+      border-radius: 20px;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .services-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .service-box {
+      background-color: #f0fff0;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-box h3 {
+      color: #2f8f2f;
+      margin-bottom: 0.5rem;
+    }
+
+    .experience-comments {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .comment {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 10px;
+      border-left: 4px solid #2f8f2f;
+    }
+
+    .stars {
+      color: #f1c40f;
+      font-size: 1rem;
+    }
+
+    .footer {
+      background-color: #e6ffe6;
+      padding: 2rem;
+      border-top: 1px solid #ccc;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #2f8f2f;
+      margin-bottom: 1rem;
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .socials a {
+      text-decoration: none;
+      color: #2e2e2e;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: -1rem;
+    }
+
+    .social-icons a {
+      color: #2e2e2e;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #2f8f2f;
+    }
+
+    .contact-info {
+      margin-top: 1rem;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .footer-logo-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-slogan {
+      font-style: italic;
+      color: #2f8f2f;
+      font-size: 0.9rem;
+      margin-top: -1rem;
+    }
+
+    .cahier1-main {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 1.5rem;
+      border: 2px solid #2f8f2f;
+      border-radius: 12px;
+      background-color: #f0fff0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #2e2e2e;
+    }
+
+    .cahier1-main h1 {
+      color: #2f8f2f;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .cahier1-main .intro-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .cahier1-main .numbered-list {
+      margin: 1rem 0 2rem 1.5rem;
+      padding-left: 0;
+      color: #2f8f2f;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      list-style-type: disc;
+    }
+
+    .cahier1-main .numbered-list li {
+      margin-bottom: 0.8rem;
+    }
+
+    .cahier1-main .details-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .cahier1-main .btn-container {
+      text-align: center;
+    }
+
+    .cahier1-main .contact-btn {
+      background-color: #2f8f2f;
+      color: white;
+      padding: 0.75rem 1.8rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .cahier1-main .contact-btn:hover {
+      background-color: #256b25;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo">​Flehetna​</div>
+    <nav class="navbar">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="services.html">Nos Solutions</a></li>
+        <li><a href="maladies.html">Maladies et Ravageurs</a></li>
+        <li><a href="reg.html">Réglementations</a></li>
+        <li><a href="cahier.html">Cahier de Charges</a></li>
+        <!-- <li><a href="recherche.html">Recherche des variétés</a></li>
+        <li><a href="rech.html">Index phytosanitaires</a></li> -->
+        <li><a href="actu.html">Actu Entreprises</a></li>
+        <li><a href="contact.html">Contactez-nous</a></li>
+      </ul>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="full-width-ad" id="ad-banner">
+      <a id="ad-link" href="#" target="_blank" rel="noopener">
+        <img src="lead3.jpg" alt="Advertisement">
+      </a>
+    </div>
+  </main>
+  <main class="cahier1-main">
+    <h1>Cahier de charge Importation et la commercialisation des
+      semences et plants</h1>
+
+    <p class="intro-text">
+      ce cahier de charge presente les conditions relatif a l'importation et
+      la commercialisation des semences et plants
+    </p>
+
+    <ol class="numbered-list">
+      <li>Le présent cahier des charges est constitué de 6 pages contenant 4
+        chapitres divisés en 15 articles Le premier chapitre est relatif aux
+        dispositions générales, le deuxième chapitre se rapporte aux
+        conditions relatives à l'activité d'importation et de
+        commercialisation des semences et plants. Le troisième chapitre est
+        relatif au domaine d'intervention de l'Administration, le quatrième
+        chapitre est relatif aux infractions et aux pénalités.</li>
+    </ol>
+
+    <p class="details-text">
+      Pour avoir accés a tout le
+      document contactez nous <b>(informations
+        payante)</b>
+    </p>
+
+    <div class="btn-container">
+      <a href="contact.html" class="contact-btn">Contactez Nous</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo-group">
+        <div class="footer-logo">Flehetna</div>
+        <p class="footer-slogan">Votre partenaire du succès.</p>
+      </div>
+      <div class="socials">
+        <div class="contact-info">
+          <p><b>Email :</b> contact@Flehetna.com</p>
+          <p><b>Téléphone : </b>+216 98 746 516</p>
+          <p><b>adresse : </b><a target="_blank" href="https://maps.app.goo.gl/Nzj7kwZraE4rLWEB7"><u>Ouvrir sur maps</u></a></p>
+        </div>
+        <div class="social-icons">
+          <a target="_blank" href="https://www.facebook.com/FLehetna/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 Flehetna. Tous droits
+      réservés.</div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    function handleResize() {
+      if (window.innerWidth > 768) {
+        navLinks.style.display = 'flex';
+      } else if (!navLinks.classList.contains('active')) {
+        navLinks.style.display = 'none';
+      }
+    }
+
+    toggle.addEventListener('click', () => {
+      if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+        navLinks.classList.remove('active');
+      } else {
+        navLinks.style.display = 'flex';
+        navLinks.classList.add('active');
+      }
+    });
+
+    const ads = [
+      { img: 'lead3.jpg', link: 'https://site-1.com' },
+      { img: 'lead1.jpg', link: 'https://site-2.com' },
+      { img: 'lead2.jpg', link: 'https://site-3.com' }
+    ];
+
+    let currentIndex = 0;
+
+    const adBanner = document.getElementById('ad-banner');
+    const adImg = adBanner.querySelector('img');
+    const adLink = document.getElementById('ad-link');
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % ads.length;
+
+      // fade out
+      adImg.style.opacity = 0;
+
+      setTimeout(() => {
+        adImg.src = ads[currentIndex].img;
+        adLink.href = ads[currentIndex].link;
+        adImg.style.opacity = 1;
+      }, 500); // same as CSS transition
+    }, 2000);
+  </script>
+</body>
+
+</html>
